@@ -14,7 +14,7 @@ const cityCoordinates = {
 
 function App() {
   const API_KEY = process.env.REACT_APP_API_KEY;
-
+  const [darkMode, setDarkMode] = useState(true);
   const [city, setCity] = useState("Coimbatore");
   const [weather, setWeather] = useState(null);
   const [aqi, setAqi] = useState(null);
@@ -88,18 +88,48 @@ const chartData = Object.values(dailyData)
 };
 
   const aqiInfo = getAQIInfo(aqi);
-
+  const btn = (color) => ({
+  background: color,
+  color: "white",
+  border: "none",
+  padding: "10px",
+  margin: "6px",
+  borderRadius: "10px",
+  cursor: "pointer",
+  fontWeight: "bold",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.3)"
+});
   return (
-    <div style={{ display: "flex", padding: "20px", gap: "20px" }}>
+    <div style={{
+  display: "flex",
+  padding: "20px",
+  gap: "20px",
+  background: darkMode ? "#121212" : "#ffffff",
+  color: darkMode ? "#ffffff" : "#000000",
+  minHeight: "100vh"
+}}>
 
       {/* Sidebar */}
       <div style={{
-        width: "250px",
-        background: "#f5f5f5",
-        padding: "20px",
-        borderRadius: "10px"
-      }}>
+  width: "260px",
+  background: darkMode ? "#1e1e1e" : "#f5f5f5",
+  padding: "20px",
+  borderRadius: "15px",
+  boxShadow: "0 4px 15px rgba(0,0,0,0.2)"
+}}>
         <h2>Climate Dashboard</h2>
+        <button 
+  onClick={() => setDarkMode(!darkMode)}
+  style={{
+    marginBottom: "10px",
+    padding: "6px",
+    borderRadius: "6px",
+    border: "none",
+    cursor: "pointer"
+  }}
+>
+  {darkMode ? "🌙 Dark" : "☀ Light"}
+</button>
         <h3>Select City</h3>
 
         {/* Buttons */}
@@ -160,7 +190,13 @@ const chartData = Object.values(dailyData)
       </div>
 
       {/* Map */}
-      <div style={{ flex: 1 }}>
+      <div style={{
+  flex: 1,
+  background: darkMode ? "#1e1e1e" : "#ffffff",
+  padding: "20px",
+  borderRadius: "15px",
+  boxShadow: "0 4px 20px rgba(0,0,0,0.2)"
+}}>
         <h1>Digital Twin Climate Map</h1>
         <MapView city={city} aqi={aqi} />
       </div>
