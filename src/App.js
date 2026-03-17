@@ -67,7 +67,7 @@ const chartData = Object.values(dailyData)
       setForecast(chartData);
     });
 
-}, [city]);
+}, [city], API_KEY);
 
   // 🎨 AQI Label + Color
  const getAQIInfo = (value) => {
