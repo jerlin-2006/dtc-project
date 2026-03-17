@@ -13,6 +13,7 @@ const cityCoordinates = {
 };
 
 function App() {
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   const [city, setCity] = useState("Coimbatore");
   const [weather, setWeather] = useState(null);
@@ -22,14 +23,14 @@ function App() {
   useEffect(() => {
 
   // 🌤 Weather API
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=100b04a0aa230505e2b0d361086fb899&units=metric`)
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)
     .then(res => res.json())
     .then(data => setWeather(data));
 
   const { lat, lon } = cityCoordinates[city];
 
   // 🌫 AQI API
-  fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=100b04a0aa230505e2b0d361086fb899`)
+  fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
     .then(res => res.json())
     .then(data => {
       if (data?.list?.length > 0) {
@@ -38,8 +39,7 @@ function App() {
     });
 
   // 📊 Forecast API (CLEAN)
-  fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=100b04a0aa230505e2b0d361086fb899&units=metric`)
-    .then(res => res.json())
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
     .then(data => {
 
       if (!data?.list) return;
